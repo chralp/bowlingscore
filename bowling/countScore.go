@@ -206,32 +206,35 @@ func (cg* Game) calculateScore (indexId int, prev int) {
 
 	// Special case i frameNumber is 10
 	if (frameNumber == 10) {
-		if(cg.Frames[indexId].FrameScore == 0) {
-			if(cg.Frames[indexId - 1].FrameScore == 0) {
-				if(cg.Frames[indexId - 2].FrameScore == 0) {
-					cg.calculateScoreSwitch(indexId, prev)
-				} else {
-					cg.calculateScoreSwitch(indexId, 1)
-				}
-			} else {				
-				if(len(cg.Frames[indexId].Rolls) > 1) {
-					switch(cg.Frames[indexId].Rolls[1]) {
-					case "x":
-						if(len(cg.Frames[indexId].Rolls) > 2) {
-							cg.calculateScoreSwitch(indexId, prev -1)
-						}
-						break;
-					case "/":
-						if(len(cg.Frames[indexId].Rolls) > 2) {
-							cg.calculateScoreSwitch(indexId, prev)
-						}
-						break;
-					default:
-						if(len(cg.Frames[indexId].Rolls) > 1) {
-							cg.calculateScoreSwitch(indexId, 0)
-						}
-						break;						
+		if(cg.Frames[indexId - 1].FrameScore == 0) {
+			if(cg.Frames[indexId - 2].FrameScore == 0) {
+				cg.calculateScoreSwitch(indexId, prev)
+			} else {
+				cg.calculateScoreSwitch(indexId, 1)
+				if(len(cg.Frames[indexId].Rolls) == 2) {
+					if(cg.Frames[indexId].Rolls[1] != "/" && cg.Frames[indexId].Rolls[1] != "x"){
+						cg.calculateScoreSwitch(indexId, 0)
 					}
+				}
+			}
+		} else {
+			if(len(cg.Frames[indexId].Rolls) > 1) {
+				switch(cg.Frames[indexId].Rolls[1]) {
+				case "x":
+					if(len(cg.Frames[indexId].Rolls) > 2) {
+						cg.calculateScoreSwitch(indexId, prev -1)
+					}
+					break;
+				case "/":
+					if(len(cg.Frames[indexId].Rolls) > 2) {
+						cg.calculateScoreSwitch(indexId, prev)
+					}
+					break;
+				default:
+					if(len(cg.Frames[indexId].Rolls) > 1) {
+						cg.calculateScoreSwitch(indexId, 0)
+					}
+					break;
 				}
 			}
 		}
