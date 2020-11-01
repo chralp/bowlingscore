@@ -212,4 +212,42 @@ func TestCountScore(t *testing.T) {
 			t.Fail()
 		}
 	}
+
+
+	GAMES = nil
+
+	// Start new game
+	Startgame(1)
+
+	cg = GetCurrentGame("player1")
+
+	GetCurrentGame("player1").AddRoll("9")
+	GetCurrentGame("player1").AddRoll("/")
+	GetCurrentGame("player1").AddRoll("6")
+	GetCurrentGame("player1").AddRoll("/")
+	GetCurrentGame("player1").AddRoll("9")
+	GetCurrentGame("player1").AddRoll("/")
+	GetCurrentGame("player1").AddRoll("x")
+	GetCurrentGame("player1").AddRoll("4")
+	GetCurrentGame("player1").AddRoll("-")
+	GetCurrentGame("player1").AddRoll("x")
+	GetCurrentGame("player1").AddRoll("x")
+	GetCurrentGame("player1").AddRoll("x")
+	GetCurrentGame("player1").AddRoll("x")
+	GetCurrentGame("player1").AddRoll("6")
+	GetCurrentGame("player1").AddRoll("/")
+	GetCurrentGame("player1").AddRoll("5")
+
+	// Verify that Game.Score is 194
+	if(cg.Score != 194) {
+		t.Fail()
+	}
+
+	// Verify that each frame have a FrameScore
+	for i := 0; i < len(cg.Frames); i++ {
+		if(cg.Frames[i].FrameScore == 0) {
+			t.Fail()
+		}
+	}
+
 }
