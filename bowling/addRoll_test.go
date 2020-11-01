@@ -6,7 +6,10 @@ import (
 
 // Test includes marker test
 func TestAddRoll(t *testing.T) {
-	
+
+	//Ensure no active games exists
+	GAMES = nil
+
 	Startgame(1)
 	cg := GetCurrentGame("player1")
 

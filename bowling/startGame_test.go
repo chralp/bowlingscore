@@ -2,13 +2,12 @@ package bowling
 
 import (
     "testing"
-	"fmt"
 )
 
 func TestStartOneGame(t *testing.T) {
+	GAMES = nil
 	Startgame(1)
-	if len(GAMES) != 2 {
-		fmt.Println("GAMES STARTED", len(GAMES))
+	if len(GAMES) != 1 {
 		t.Fail()
 	}
 }
